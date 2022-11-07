@@ -3,7 +3,7 @@ import styled from "styled-components"
 export default function Home() {
   return (
     <>
-      <Title>안녕하세요</Title>
+      <Title>nextJS</Title>
     </>
   )
 }

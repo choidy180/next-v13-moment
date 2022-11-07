@@ -10,7 +10,7 @@ export const darkTheme = {
     bgColor: "#252525",
     menuColor: "#D391FA",
     textColor: "#fff",
-    shadowColor: "#000",
+    shadowColor: "#FFFFFF",
     name: "dark",
 };
 
