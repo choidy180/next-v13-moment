@@ -15,7 +15,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'NEXON Lv2 Gothic';
+    font-family: 'Pretendard-Regular';
     font-weight: 400;
     z-index: 10;
     color: #FFFFFF;

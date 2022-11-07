@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import { BsPlusLg, BsSun, BsMoon } from 'react-icons/bs';
-import { useSetRecoilState } from 'recoil';
-import { isPointAtom } from "../src/theme";
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { isThemeAtom } from '../recoil/theme'
 
 
 const ThemeNavigation = ({changeTheme}:any) => {
-    const useSetTheme = useSetRecoilState(isPointAtom);
+    const useSetTheme = useSetRecoilState(isThemeAtom);
+    const themeState= useRecoilState(isThemeAtom);
     return (
         <Container>
             <Title>테마 설정</Title>
             <BsPlusLg className="cancel"/>
-            <LightDarkTheme>
+            <LightDarkTheme color={themeState}>
                 <div onClick={()=>changeTheme(true)}>
                     <BsSun className="sun"/>
                 </div>
@@ -19,7 +20,12 @@ const ThemeNavigation = ({changeTheme}:any) => {
                 </div>
             </LightDarkTheme>
             <PointTheme>
-
+                <h2>Color Ficker</h2>
+                <div className="container">
+                    <ColorContent onClick={()=>useSetTheme('#f53b57')} color={'#f53b57'}/>
+                    <ColorContent onClick={()=>useSetTheme('#3c40c6')} color={'#3c40c6'}/>
+                    <ColorContent onClick={()=>useSetTheme('#0be881')} color={'#0be881'}/>
+                </div>
             </PointTheme>
         </Container>
     )
@@ -51,8 +57,10 @@ const Container = styled.div`
 `
 const Title = styled.p`
     width: 100%;
-    font-size: 18px;
+    font-size: 19px;
     pointer-events: none;
+    font-family: 'Pretendard-Regular';
+    font-weight: 700;
 `
 const LightDarkTheme = styled.div`
     width: 100%;
@@ -68,7 +76,7 @@ const LightDarkTheme = styled.div`
         width: 100%;
         height: 64px;
         border-radius: 8px;
-        box-shadow: ${props => props.theme.shadowColor} 0px 1px 1px, ${props => props.theme.shadowColor} 0px 0px 1px 1px;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
         cursor: pointer;
         transition: all .15s ease-in-out;
         svg {
@@ -79,12 +87,34 @@ const LightDarkTheme = styled.div`
             width: 26px;
             height: 26px;
         }
-        :hover{
-            box-shadow: ${props => props.theme.shadowColor} 0px 4px 8px -2px, ${props => props.theme.shadowColor} 0px 0px 0px 1px;
-        }
     }
 `
 const PointTheme = styled.div`
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 24px;
+    div.container {
+        width: 255px;
+        height: 85px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 24px;
+        cursor: pointer;
+    }
+    h2{
+        color: ${props => props.theme.textColor};
+        font-size: 20px;
+        font-weight: 500;
+    }
+`
+
+const ColorContent = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: ${props => props.color};
 `
 export default ThemeNavigation;
