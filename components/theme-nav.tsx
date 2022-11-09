@@ -2,16 +2,24 @@ import styled from "styled-components";
 import { BsPlusLg, BsSun, BsMoon } from 'react-icons/bs';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { isThemeAtom } from '../recoil/theme'
+import { BsPalette } from 'react-icons/bs'
+import { useState } from "react";
 
 
 const ThemeNavigation = ({changeTheme}:any) => {
     const useSetTheme = useSetRecoilState(isThemeAtom);
     const themeState= useRecoilState(isThemeAtom);
+    const [view, setView] = useState(false);
+    const useColorSet = (value:string) => {
+        useSetTheme(value);
+        setView(false);
+        return;
+    }
     return (
-        <Container>
+        <Container className={view ? '' : 'none'}>
             <Title>테마 설정</Title>
-            <BsPlusLg className="cancel"/>
-            <LightDarkTheme color={themeState}>
+            <BsPlusLg className="cancel" onClick={()=> setView(false)}/>
+            <LightDarkTheme color={themeState[0]}>
                 <div onClick={()=>changeTheme(true)}>
                     <BsSun className="sun"/>
                 </div>
@@ -22,11 +30,16 @@ const ThemeNavigation = ({changeTheme}:any) => {
             <PointTheme>
                 <h2>Color Ficker</h2>
                 <div className="container">
-                    <ColorContent onClick={()=>useSetTheme('#f53b57')} color={'#f53b57'}/>
-                    <ColorContent onClick={()=>useSetTheme('#3c40c6')} color={'#3c40c6'}/>
-                    <ColorContent onClick={()=>useSetTheme('#0be881')} color={'#0be881'}/>
+                    <ColorContent onClick={()=>useColorSet('#f53b57')} color={'#f53b57'}/>
+                    <ColorContent onClick={()=>useColorSet('#3c40c6')} color={'#3c40c6'}/>
+                    <ColorContent onClick={()=>useColorSet('#0be881')} color={'#0be881'}/>
                 </div>
             </PointTheme>
+            <ButtonBox color={themeState[0]} className={view ? 'none' : ''} onClick={()=> setView((e) => !e)}>
+                <button>
+                    <BsPalette/>
+                </button>
+            </ButtonBox>
         </Container>
     )
 }
@@ -44,8 +57,8 @@ const Container = styled.div`
     background-color: ${props => props.theme.bgColor};
     box-shadow: ${props => props.theme.shadowColor} 0px 2px 5px -1px, ${props => props.theme.shadowColor} 0px 1px 3px -1px;
     color: ${props => props.theme.textColor};
+    transition: all .3s ease-in-out;
     padding: 14px;
-    
     .cancel{
         position: absolute;
         right: 12px;
@@ -53,6 +66,9 @@ const Container = styled.div`
         height: 20px;
         transform: rotate(45deg);
         cursor: pointer;
+    }
+    &.none{
+        right: -286px;
     }
 `
 const Title = styled.p`
@@ -76,7 +92,7 @@ const LightDarkTheme = styled.div`
         width: 100%;
         height: 64px;
         border-radius: 8px;
-        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+        box-shadow: ${props => props.color} 0px 0px 0px 2px;
         cursor: pointer;
         transition: all .15s ease-in-out;
         svg {
@@ -116,5 +132,51 @@ const ColorContent = styled.div`
     width: 100%;
     height: 100%;
     background-color: ${props => props.color};
+`
+
+const ButtonBox = styled.div`
+    width: 44px;
+    height: 42px;
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${props => props.theme.bgColor};
+    cursor: pointer;
+    &.none{
+        display: none;
+    }
+    &:hover{
+        svg{
+            color: ${props => props.color};
+        }
+    }
+    button{
+        &::after{
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            top: -4px;
+            right: -6px;
+            border-radius: 50%;
+            background-color: ${props => props.color};
+        }
+    }
+    svg{
+        left: -2px;
+        width: 24px;
+        height: 24px;
+        color: ${props => props.theme.textColor};
+        transition: all .15s ease-in-out;
+        &:hover{
+            color: ${props => props.color};
+        }
+    }
 `
 export default ThemeNavigation;
