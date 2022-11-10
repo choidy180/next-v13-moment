@@ -57,7 +57,7 @@ const Container = styled.div`
     background-color: ${props => props.theme.bgColor};
     box-shadow: ${props => props.theme.shadowColor} 0px 2px 5px -1px, ${props => props.theme.shadowColor} 0px 1px 3px -1px;
     color: ${props => props.theme.textColor};
-    transition: all .3s ease-in-out;
+    transition: all .15s ease-in-out;
     padding: 14px;
     .cancel{
         position: absolute;

@@ -8,6 +8,7 @@ import Layout from '../components/layout';
 import BackImage from '../components/back-image';
 import ThemeNavigation from '../components/theme-nav';
 import { RecoilRoot } from 'recoil';
+import Date from '../components/date';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLightTheme, setIsLightTheme] = React.useState(true);
@@ -22,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <BackImage/>
           <Component {...pageProps} />
           <ThemeNavigation changeTheme={changeTheme}/>
+          <Date/>
         </Layout>
       </ThemeProvider>
     </RecoilRoot>
