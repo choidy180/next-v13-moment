@@ -28,8 +28,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
-, "app/page.js"  ],
+    ".next/types/**/*.ts",
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.js"
+, "app/page.js", "lib/hooks/useObserver.js"  ],
   "exclude": [
     "node_modules"
   ]
