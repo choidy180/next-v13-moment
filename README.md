@@ -44,7 +44,7 @@
 ## 📦 설치 및 실행
 ```bash
 # 1) 레포지토리 복제
-git clone https://github.com/yourname/momentum-clone
+git clone https://github.com/choidy180/next-v13-moment
 cd momentum-clone
 
 # 2) 의존성 설치
